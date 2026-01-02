@@ -1,0 +1,12 @@
+
+CREATE TABLE IF NOT EXISTS cart_items (
+    id SERIAL PRIMARY KEY,
+    cart_id INTEGER NOT NULL REFERENCES cart(id) ON DELETE CASCADE,
+    painting_id INTEGER NOT NULL REFERENCES paintings(picId) ON DELETE CASCADE,
+    quantity INTEGER DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(cart_id, painting_id)
+);
+
+
+

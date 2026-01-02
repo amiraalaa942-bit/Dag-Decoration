@@ -1,0 +1,33 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": {"ENV": "POSTGRES_HOST"},
+    "database":{"ENV": "POSTGRES_DB"},
+    "user": {"ENV": "POSTGRES_USER"},
+    "password": {"ENV": "POSTGRES_PASSWORD"},
+    "port": {"ENV": "POSTGRES_PORT"},
+    "ssl": false
+
+  }
+  ,
+  "prod": {
+    "driver": "pg",
+    "host": {"ENV": "POSTGRES_HOST"},
+    "database":{"ENV": "POSTGRES_DB"},
+    "user": {"ENV": "POSTGRES_USER"},
+    "password": {"ENV": "POSTGRES_PASSWORD"},
+    "port": {"ENV": "POSTGRES_PORT"},
+    "ssl": {
+      "rejectUnauthorized": false
+    }
+  },
+  "test": {
+    "driver": "pg",
+    "host": "localhost",
+    "port": 5432,
+    "database": "udagramdb_test",
+    "user": "postgres",
+    "password": {"ENV": "POSTGRES_PASSWORD"},
+    "ssl": false
+  }
+}

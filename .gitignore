@@ -1,0 +1,22 @@
+node_modules/
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+uploads/
+.DS_Store
+dist/
+coverage/
+*.log
+
+# Deployment packages and archives
+*.zip
+deploy-backend.zip
+
+
+# Test output files
+test-output.txt
+
+# Frontend build folder (usually inside My-Store/)
+My-Store/dist/

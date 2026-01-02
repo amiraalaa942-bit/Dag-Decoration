@@ -1,0 +1,9 @@
+CREATE TABLE paintings (
+    picname VARCHAR(500),
+    picId SERIAL PRIMARY KEY,
+    height DECIMAL NOT NULL,
+    width DECIMAL NOT NULL,
+    price INTEGER NOT NULL,
+    picUrl VARCHAR(500) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
