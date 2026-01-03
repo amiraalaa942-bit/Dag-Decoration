@@ -1,0 +1,61 @@
+<div *ngIf="cartData.items.length > 0">
+   <form #checkoutForm="ngForm" (ngSubmit)="Continue()">
+    <div class="CheckoutInfo">
+      <label for="Name">Name</label> 
+      <input type="text" id="Name" name="Name" 
+             [(ngModel)]="Name" 
+             (ngModelChange)="logFieldChange('Name', $event)" 
+             required minlength="2" maxlength="100"
+             pattern="^[a-zA-Z]+$"
+             #nameInput="ngModel"
+             class="form-input"
+             placeholder="Enter your full name">
+      <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-message">
+        <div *ngIf="nameInput.errors?.['required']">Name is required</div>
+        <div *ngIf="nameInput.errors?.['minlength']">Name must be at least 2 characters</div>
+        <div *ngIf="nameInput.errors?.['maxlength']">Name cannot exceed 100 characters</div>
+        <div *ngIf="nameInput.errors?.['pattern']">Only letters allowed</div>
+      </div>
+    </div>
+    
+    <div class="CheckoutInfo">
+      <label for="Phone">Phone Number</label>
+      <input type="tel" id="Phone" name="Phone"  
+            [(ngModel)]="Phone" 
+            (ngModelChange)="logFieldChange('Phone', $event)" 
+            required 
+            pattern="^[+]?[0-9\s\-\(\)]{8,20}$"
+            minlength="8" maxlength="20"
+            #phoneInput="ngModel"
+            class="form-input"
+            placeholder="e.g., +20 123 456 7890">
+      <div *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)" class="error-message">
+        <div *ngIf="phoneInput.errors?.['required']">Phone number is required</div>
+        <div *ngIf="phoneInput.errors?.['minlength']">Phone number must be at least 8 digits</div>
+        <div *ngIf="phoneInput.errors?.['maxlength']">Phone number cannot exceed 20 digits</div>
+        <div *ngIf="phoneInput.errors?.['pattern']">Enter a valid phone number (digits, +, spaces, hyphens, parentheses)</div>
+      </div>
+    </div>  
+    
+    <div class="CheckoutInfo">
+      <label for="Location">Location</label>
+      <input type="text" id="Location" name="Location"  
+            [(ngModel)]="Location" 
+            (ngModelChange)="logFieldChange('Location', $event)" 
+            required 
+            minlength="5" maxlength="200"
+            #locationInput="ngModel"
+            class="form-input"
+            placeholder="Enter your complete address">
+      <div *ngIf="locationInput.invalid && (locationInput.dirty || locationInput.touched)" class="error-message">
+        <div *ngIf="locationInput.errors?.['required']">Location is required</div>
+        <div *ngIf="locationInput.errors?.['minlength']">Location must be at least 5 characters</div>
+        <div *ngIf="locationInput.errors?.['maxlength']"> Location cannot exceed 200 characters</div>
+      </div>
+    </div>
+    <div *ngIf="checkoutForm.invalid" class="error-message">
+            Please correct all errors above before continuing
+    </div>
+   <button type="submit" class="Checkoutbutton" [disabled]="checkoutForm.invalid" >Continue</button>
+   </form>
+ </div>

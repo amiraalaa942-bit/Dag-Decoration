@@ -1,0 +1,17 @@
+<div class="main-container">
+    <!-- Toast notification -->
+  <div *ngIf="showToast" class="toast" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+    {{ toastMessage }}
+  </div>
+  <div class="content-wrapper">
+    <div class="container">
+      <app-cart (cartData)="handleCartData($event)"></app-cart>
+      <app-checkout [cartData]="cartDataFromCart"  (checkoutData)="handleCheckoutData($event)"></app-checkout>
+    </div>
+    
+    
+    <div *ngIf="cartDataFromCart.items.length > 0" class="Paintingbuttondiv">
+      <button routerLink="/paintings" class="btn-continue">Continue Shopping</button>
+    </div>
+  </div>
+</div>

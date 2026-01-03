@@ -1,0 +1,86 @@
+<div class="container">
+  <!-- Add toast -->
+  <div *ngIf="showToast" class="toast" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+    {{ toastMessage }}
+  </div>
+
+ <form #RegisterForm="ngForm" (ngSubmit)="Register()">
+    <h3 class="Title">Register</h3>
+    
+    <div class="RegisterInfo">
+      <label for="UserName" class="form-label">Username</label>
+      <input type="text" id="UserName" name="UserName" 
+             [(ngModel)]="username"  
+             (ngModelChange)="logFieldChange('username', $event)" 
+             required minlength="3" maxlength="50"
+             pattern="^[a-zA-Z0-9_]+$"
+             #userName="ngModel"
+             class="form-input">
+      <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="error-message">
+        <div *ngIf="userName.errors?.['required']">Username is required</div>
+        <div *ngIf="userName.errors?.['minlength']">Username must be at least 3 characters</div>
+        <div *ngIf="userName.errors?.['maxlength']">Username cannot exceed 50 characters</div>
+        <div *ngIf="userName.errors?.['pattern']">Only letters, numbers, and underscores allowed</div>
+      </div>
+    </div>
+
+    <div class="RegisterInfo">
+      <label for="firstName" class="form-label">First Name</label>
+      <input type="text" id="firstName" name="firstName" 
+             [(ngModel)]="firstName" 
+             (ngModelChange)="logFieldChange('firstName', $event)"  
+             required minlength="2" maxlength="50"
+             pattern="^[a-zA-Z]+$"
+             #firstNameInput="ngModel"
+             class="form-input">
+      <div *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)" class="error-message">
+        <div *ngIf="firstNameInput.errors?.['required']">First name is required</div>
+        <div *ngIf="firstNameInput.errors?.['minlength']">First name must be at least 2 characters</div>
+        <div *ngIf="firstNameInput.errors?.['maxlength']">First name cannot exceed 50 characters</div>
+        <div *ngIf="firstNameInput.errors?.['pattern']"> Only letters allowed</div>
+      </div>
+    </div>  
+    
+    <div class="RegisterInfo">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" id="lastName" name="lastName" 
+             [(ngModel)]="lastName" 
+             (ngModelChange)="logFieldChange('lastName', $event)" 
+             required minlength="2" maxlength="50"
+             pattern="^[a-zA-Z]+$"
+             #lastNameInput="ngModel"
+             class="form-input">
+      <div *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)" class="error-message">
+        <div *ngIf="lastNameInput.errors?.['required']">Last name is required</div>
+        <div *ngIf="lastNameInput.errors?.['minlength']">Last name must be at least 2 characters</div>
+        <div *ngIf="lastNameInput.errors?.['maxlength']">Last name cannot exceed 50 characters</div>
+        <div *ngIf="lastNameInput.errors?.['pattern']">Only letters allowed</div>
+      </div>
+    </div>
+    
+    <div class="RegisterInfo">
+      <label for="Password" class="form-label">Password</label>
+      <input type="password" id="Password" name="Password" 
+             [(ngModel)]="Password" 
+             (ngModelChange)="logFieldChange('Password', $event)" 
+             required minlength="8" maxlength="100"
+              pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$"
+             #password="ngModel"
+             class="form-input">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+        <div *ngIf="password.errors?.['required']"> Password is required</div>
+        <div *ngIf="password.errors?.['minlength']"> Password must be at least 8 characters</div>
+        <div *ngIf="password.errors?.['maxlength']">Password cannot exceed 100 characters</div>
+        <div *ngIf="password.errors?.['pattern']">
+          Password must contain: uppercase, lowercase, number, and special character
+        </div>
+      </div>
+    </div> 
+    
+    <div *ngIf="RegisterForm.invalid" class="error-message">
+       Please correct all errors above before submitting
+    </div>
+    
+    <button type="submit" class="Registerbutton" [disabled]="RegisterForm.invalid">Register</button>
+  </form>
+</div>

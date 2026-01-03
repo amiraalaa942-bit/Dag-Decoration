@@ -1,0 +1,66 @@
+<div class="container">
+  <!-- Toast notification -->
+  <div *ngIf="showToast" class="toast" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+    {{ toastMessage }}
+  </div>
+
+  <div class="admin-card">
+    <h2 class="admin-title">Add New Painting</h2>
+    <p class="admin-subtitle">Enter painting details below</p>
+    
+    <form #PaintingForm="ngForm">
+      <div class="form-group">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" id="Name" name="name" [(ngModel)]="newPainting.name" (ngModelChange)="logFieldChange('name', $event)" #name="ngModel" maxlength="100" pattern="^[a-zA-Z]+$" required minlength="2" class="form-input">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+          <div *ngIf="name.errors?.['required']">Painting name is required</div>
+          <div *ngIf="name.errors?.['minlength']">Name must be at least 2 characters long</div>
+          <div *ngIf="name.errors?.['maxlength']">Name cannot exceed 100 characters</div>
+          <div *ngIf="name.errors?.['pattern']">Only letters, numbers, spaces, and basic punctuation allowed</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Price" class="form-label">Price</label>
+        <input type="number" id="Price" name="price" [(ngModel)]="newPainting.price" (ngModelChange)="logFieldChange('price', $event)" #price="ngModel" required min="400" class="form-input">
+        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="error-message">
+          <div *ngIf="price.errors?.['required']">Price is required</div>
+          <div *ngIf="price.errors?.['min']">Price must be at least 400 EGP </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="height" class="form-label">Height</label>
+        <input type="number" id="height" name="height" [(ngModel)]="newPainting.height" (ngModelChange)="logFieldChange('height', $event)" #height="ngModel" required min="100"  class="form-input">
+         <div *ngIf="height.invalid && (height.dirty || height.touched)" class="error-message">
+          <div *ngIf="height.errors?.['required']">Height is required</div>
+          <div *ngIf="height.errors?.['min']">Height must be at least 100 cm</div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="width" class="form-label">Width</label>
+        <input type="number" id="width" name="width" [(ngModel)]="newPainting.width" (ngModelChange)="logFieldChange('width', $event)" #width="ngModel" required min="100" class="form-input">
+            <div *ngIf="width.invalid && (width.dirty || width.touched)" class="error-message">
+          <div *ngIf="width.errors?.['required']">Width is required</div>
+          <div *ngIf="width.errors?.['min']">Width must be at least 100 cm</div>
+      </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="image" class="form-label">Upload Image</label>
+         <input type="file" id="image" name="image" 
+         (change)="handleFileChange($event)" 
+         accept="image/*" 
+         required 
+         class="form-input">
+      </div>
+      <div class="form-actions">
+        <button (click)="AddPainting()" class="btn btn-submit" [disabled]="PaintingForm.invalid || !selectedFile">
+          Add Painting
+        </button>
+        <button routerLink="/paintings" class="btn btn-back">
+          Continue Shopping
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

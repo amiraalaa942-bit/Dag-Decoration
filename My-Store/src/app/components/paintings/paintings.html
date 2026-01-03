@@ -1,0 +1,49 @@
+<div class="container">
+  <!-- Toast/Snackbar Notification -->
+  <div *ngIf="showToast" class="toast" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+    {{ toastMessage }}
+  </div>
+
+  <!-- Header with actions -->
+  <div class="header">
+    <button (click)="LogOut()" class="btn btn-logout">Log Out</button>
+    
+    <div class="admin-actions" *ngIf="IsAdmin">
+      <button  routerLink="/admin" class="btn btn-cart">Add Painting</button>
+    </div> 
+    
+    <div class="client-actions" *ngIf="IsClient">
+      <button routerLink="/cart" class="btn btn-cart">Go to Cart</button>
+    </div>  
+  </div>
+
+  <!-- Loading & Error States -->
+  <div *ngIf="loading" class="loading">Loading paintings...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Paintings Grid - 2 per row -->
+  <div class="paintings-grid" *ngIf="!loading && !error">
+    <div class="painting-card" *ngFor="let painting of paintings">
+      <img [src]="getImage(painting.picid, 800, 800)" [alt]="painting.name" class="painting-image">
+      <div class="painting-details">
+        <h3 class="painting-name">{{ painting.name }}</h3>
+        <p class="painting-price">{{ painting.price }} EGP</p>
+        <p class="painting-size">{{ painting.height }} × {{ painting.width }} </p>
+        
+        <div class="painting-actions">
+          <div *ngIf="IsAdmin">
+            <button (click)="onDeletePainting(painting.picid)" class="btn btn-delete">Delete Painting</button>
+          </div> 
+          <div *ngIf="IsClient">
+            <button (click)="AddtoCart(painting.picid)" class="btn btn-add-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Paintings Message -->
+  <div *ngIf="!loading && !error && paintings.length === 0" class="no-paintings">
+    No paintings available.
+  </div>
+</div>

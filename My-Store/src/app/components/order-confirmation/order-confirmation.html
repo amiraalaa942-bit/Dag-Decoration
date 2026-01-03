@@ -1,0 +1,50 @@
+<div class="container">
+  <!-- Toast notification -->
+  <div *ngIf="showToast" class="toast" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+    {{ toastMessage }}
+  </div>
+
+  <div class="confirmation-card">
+    <h2 class="title">Order Confirmation</h2>
+    
+    <div *ngIf="orderData.cart.items.length > 0 && OrderSucceed === false" class="order-details">
+      <div class="customer-info">
+        <h3>Customer Information</h3>
+        <p><strong>Name:</strong> {{orderData.checkout.checkoutData.customer.name}}</p>
+        <p><strong>Phone:</strong> {{orderData.checkout.checkoutData.customer.phone}}</p>
+        <p><strong>Location:</strong> {{orderData.checkout.checkoutData.customer.location}}</p>
+      </div>
+      
+      <div class="order-items">
+        <h3>Order Items</h3>
+        <div *ngFor="let item of orderData.cart.items" class="order-item">
+          <span class="item-name">{{item.name}}</span>
+          <span class="item-quantity">{{item.quantity}} × {{item.price}}</span>
+          <span class="item-total">{{item.quantity * item.price}} EGP</span>
+        </div>
+      </div>
+      
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <p class="total">Total Amount: {{orderData.cart.TotalAmount}} EGP</p>
+      </div>
+
+      <div class="confirmation-actions">
+        <button (click)="Confirm()" class="btn btn-confirm">Confirm Order</button>
+        <button routerLink="/paintings" class="btn btn-cancel">Cancel</button>
+      </div>
+    </div>
+
+    <div *ngIf="orderData.cart.items.length > 0 &&  OrderSucceed === true" class="success-message">
+      <h3>🎉 Your order was successful! Congratulations!</h3>
+      <p>Your order has been confirmed </p>
+      <button routerLink="/paintings" class="btn btn-continue">Continue Shopping</button>
+    </div>
+
+    <div *ngIf="orderData.cart.items.length === 0 && OrderSucceed === false" class="no-order">
+      <h3>No order data found</h3>
+      <p>Please go back to checkout to place an order.</p>
+      <button routerLink="/paintings" class="btn btn-back">Back to Paintings</button>
+    </div>
+  </div>
+</div>

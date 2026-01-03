@@ -1,0 +1,56 @@
+<div class="cart-container">
+      <!-- Toast notification -->
+  <div *ngIf="showToast" class="toast" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+    {{ toastMessage }}
+  </div>
+  
+  <h1 class="cart-title">🛒 Your Cart</h1>
+  
+  <div *ngIf="cart.length === 0" class="empty-cart">
+    <p>Your cart is empty</p>
+    <button routerLink="/paintings" class="btn-continue">Continue Shopping</button>
+  </div>
+  
+  <div *ngIf="cart.length > 0">
+    <div class="cart-items">
+      <div *ngFor="let painting of cart; let i = index" class="cart-item">
+        <div class="item-info">
+          <h3 class="item-name">{{painting.name || 'Painting ' + (i+1)}}</h3>
+          <p class="item-size">Size: {{ painting.height }}cm × {{ painting.width }}cm</p>
+          <p class="item-price">Price: {{painting.price}}</p>
+        </div>
+        
+        <div class="quantity-controls">
+          <button class="btn-quantity" (click)="decrease(painting.picid)">−</button>
+          <span class="quantity-display">{{painting.quantity}}</span>
+          <button class="btn-quantity" (click)="increase(painting.picid)">+</button>
+        </div>
+        
+        <div class="item-total">
+          <p>Total: {{painting.price * painting.quantity}} EGP</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="cart-summary">
+      <div class="summary-item">
+        <span>Subtotal:</span>
+        <span>{{TotalAmount - 60}} EGP</span>
+      </div>
+      <div class="summary-item">
+        <span>Delivery:</span>
+        <span>60 EGP</span>
+      </div>
+      <div class="summary-item total">
+        <span>Total:</span>
+        <span>{{TotalAmount}} EGP</span>
+      </div>
+      
+      <div class="payment-info">
+        <h3>💳 Payment Method</h3>
+        <p>Cash on Delivery (COD)</p>
+      </div>
+      
+    </div>
+  </div>
+</div>

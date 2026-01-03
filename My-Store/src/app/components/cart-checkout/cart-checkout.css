@@ -1,0 +1,82 @@
+/* Main container */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Content wrapper to center everything */
+.content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Container for cart and checkout components */
+.container {
+  width: 70%;
+  max-width: 900px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Button container - also centered and 70% width */
+.Paintingbuttondiv {
+  width: 70%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Button styling */
+.btn-continue {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #90415b, #cf5d8a);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-continue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .container,
+  .Paintingbuttondiv {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container,
+  .Paintingbuttondiv {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container,
+  .Paintingbuttondiv {
+    width: 95%;
+  }
+  
+  .main-container {
+    padding: 10px;
+  }
+}

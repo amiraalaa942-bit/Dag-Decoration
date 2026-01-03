@@ -1,0 +1,88 @@
+<div class="login-container">
+  <div *ngIf="showToast" class="toast" [class.toast-success]="toastType === 'success'" [class.toast-error]="toastType === 'error'">
+    {{ toastMessage }}
+  </div>
+
+  <div class="login-card">
+    <h2 class="login-title">Welcome</h2>
+    <p class="login-subtitle">Please enter your credentials</p>
+    
+   <form #LoginForm="ngForm" (ngSubmit)="LoginForm.valid">
+      <div class="form-group">
+        <label for="UserName" class="form-label">Username</label>
+        <input 
+          type="text" 
+          id="UserName" 
+          name="UserName" 
+          [(ngModel)]="username" 
+          (ngModelChange)="logFieldChange('username', $event)"
+          required 
+          minlength="3"
+          maxlength="50"
+          pattern="^[a-zA-Z0-9_]+$"
+          #userNameInput="ngModel"
+          class="form-input"
+          placeholder="Enter your username">
+        <div *ngIf="userNameInput.invalid && (userNameInput.dirty || userNameInput.touched)" class="error-message">
+          <div *ngIf="userNameInput.errors?.['required']">Username is required</div>
+          <div *ngIf="userNameInput.errors?.['minlength']">Username must be at least 3 characters</div>
+          <div *ngIf="userNameInput.errors?.['maxlength']">Username cannot exceed 50 characters</div>
+          <div *ngIf="userNameInput.errors?.['pattern']">Only letters, numbers, and underscores allowed</div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="Password" class="form-label">Password</label>
+        <input 
+          type="password" 
+          id="Password" 
+          name="Password" 
+          [(ngModel)]="Password" 
+          (ngModelChange)="logFieldChange('Password', $event)"
+          required
+          minlength="8"
+          maxlength="100"
+          #passwordInput="ngModel"
+          class="form-input"
+          placeholder="Enter your password">
+        <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="error-message">
+          <div *ngIf="passwordInput.errors?.['required']">Password is required</div>
+          <div *ngIf="passwordInput.errors?.['minlength']">Password must be at least 8 characters</div>
+          <div *ngIf="passwordInput.errors?.['maxlength']">Password cannot exceed 100 characters</div>
+        </div>
+      </div>
+      
+      <div *ngIf="LoginForm.invalid && LoginForm.submitted" class="form-error-message">
+        Please correct all errors above before logging in
+      </div>
+
+      <div class="login-buttons">
+        <button 
+          type="button" 
+          (click)="loginAsAdmin()" 
+          class="btn btn-admin" 
+          [disabled]="LoginForm.invalid">
+          Login as Admin
+        </button>
+        
+        <button 
+          type="button" 
+          (click)="loginAsClient()" 
+          class="btn btn-client" 
+          [disabled]="LoginForm.invalid">
+          Login as Client
+        </button>
+      </div>
+      
+      <div class="register-section">
+        <p>Don't have an account?</p>
+        <button 
+          type="button" 
+          routerLink="/register" 
+          class="btn btn-register">
+          Create New Account
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
