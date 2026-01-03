@@ -36,9 +36,9 @@ run commands :
       -v postgres_data:/var/lib/postgresql/data \
       -d postgres:15
       
-    2-  docker ps
+   2-  docker ps
     
-    3-  docker start painting-postgres
+   3-  docker start painting-postgres
 
 # 3. Run database migrations to set up tables
 npm run migrate
