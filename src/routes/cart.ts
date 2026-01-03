@@ -10,7 +10,6 @@ router.post('/cart/add', authenticateJWT, async (req, res) => {
     const userid = (req as any).user.id;
     
     let CartInfocheck = await CartModel.addToCart(userid, paintingId);
-    
     res.json({ 
       message: 'Added to cart successfully',
       cartItemId: CartInfocheck.id

@@ -109,7 +109,7 @@ router.delete('/paintings',authenticateJWT,async (req,res)=>
 {
   try{
     const {picId}= req.body;
-    let paintingInfo = PaintingModel.deletePainting(picId);
+    let paintingInfo = await PaintingModel.deletePainting(picId);
     res.status(200).send(paintingInfo)
   }
   catch(error)

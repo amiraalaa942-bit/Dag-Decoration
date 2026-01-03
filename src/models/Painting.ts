@@ -11,19 +11,19 @@ export interface Painting {
 
 export class PaintingModel {
   static async create(
-    picname: string,
+    name: string,
     price: number,
     height: number,
     width: number,
     picUrl: string
-  ): Promise<{picId: number, picname: string, price: number}>  {
+  ): Promise<{picId: number, name: string, price: number}>  {
    try
    {
      const result = await pool.query(
-       `INSERT INTO paintings (picname, price, height, width, picUrl) 
+       `INSERT INTO paintings (name, price, height, width, picUrl) 
         VALUES ($1, $2, $3, $4, $5) 
-        RETURNING picId,picname,price,picUrl`,
-       [picname, price, height, width, picUrl]
+        RETURNING picId,name,price,picUrl`,
+       [name, price, height, width, picUrl]
      );
      return result.rows[0];
 
@@ -38,7 +38,7 @@ export class PaintingModel {
    try
    {
      const result = await pool.query(
-       `SELECT picId, picname, price, height, width, picUrl 
+       `SELECT picId, name, price, height, width, picUrl 
         FROM paintings WHERE picId = $1 `,
        [id]
      );

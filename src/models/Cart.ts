@@ -34,14 +34,11 @@ export class CartModel {
       if (cartResult.rows.length === 0) {
         // Create cart if it doesn't exist
         const newCart = await pool.query(
-          `INSERT INTO cart (userid) VALUES ($1) RETURNING id`,
-          [userId]
+          `INSERT INTO cart (userid,paintingid) VALUES ($1,$2) RETURNING id`,
+          [userId,paintingId]
         );
-        cartId = newCart.rows[0].id;
-      } else {
-        cartId = cartResult.rows[0].id;
-      }
-      // Check if item already exists
+      } 
+
       const existing = await pool.query(
        `SELECT ci.* FROM cart_items ci 
         JOIN cart c ON ci.cart_id = c.id 
@@ -80,7 +77,7 @@ export class CartModel {
   static async getCurrentOrder(userId: number): Promise<CartWithDetails[]> {
     try{
       const result = await pool.query(
-          `SELECT ci.id, p.picid, p.picname, p.price, p.height, p.width, ci.quantity
+          `SELECT ci.id, p.picid, p.name, p.price, p.height, p.width, ci.quantity
           FROM cart_items ci
           INNER JOIN paintings p ON ci.painting_id = p.picid
           INNER JOIN cart c ON ci.cart_id = c.id
